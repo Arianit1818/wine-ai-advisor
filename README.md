@@ -1,24 +1,11 @@
----
-
-title: AI Wine Advisor
-emoji: 🍷
-colorFrom: red
-colorTo: purple
-sdk: streamlit
-sdk_version: "1.50.0"
-python_version: "3.9"
-app_file: app.py
-pinned: false
--------------
-
 # 🍷 AI Wine Advisor
 
 AI Wine Advisor is an AI application that predicts wine quality using machine learning and explains the prediction using natural language processing (NLP).
 
 This project was developed for the AI Applications course and combines the following AI blocks:
 
-* ML Numeric Data
-* NLP (Natural Language Processing)
+- ML Numeric Data
+- NLP (Natural Language Processing)
 
 ---
 
@@ -40,10 +27,10 @@ Wine quality is difficult to estimate without expert knowledge. This application
 
 Workflow:
 
-Wine Features
-→ Machine Learning Prediction
-→ Quality Score
-→ NLP Explanation
+Wine Features  
+→ Machine Learning Prediction  
+→ Quality Score  
+→ NLP Explanation  
 → Streamlit User Interface
 
 ---
@@ -52,32 +39,30 @@ Wine Features
 
 ## Machine Learning
 
-* Wine quality prediction
-* Comparison of multiple models:
-
-  * Linear Regression
-  * Random Forest Regressor
-  * Gradient Boosting Regressor
-* Model evaluation using:
-
-  * MAE
-  * RMSE
-  * R² Score
-* Feature importance analysis
+- Wine quality prediction
+- Comparison of multiple models:
+  - Linear Regression
+  - Random Forest Regressor
+  - Gradient Boosting Regressor
+- Model evaluation using:
+  - MAE
+  - RMSE
+  - R² Score
+- Feature importance analysis
 
 ## NLP
 
-* Automatic explanation generation
-* Comparison of multiple explanation styles
-* Human-readable prediction interpretation
+- Automatic explanation generation
+- Comparison of multiple explanation styles
+- Human-readable prediction interpretation
 
 ## User Interface
 
-* Interactive Streamlit dashboard
-* Adjustable wine characteristics
-* Quality category classification
-* Feature importance visualization
-* NLP explanations
+- Interactive Streamlit dashboard
+- Adjustable wine characteristics
+- Quality category classification
+- Feature importance visualization
+- NLP explanations
 
 ---
 
@@ -89,31 +74,31 @@ UCI Machine Learning Repository – Wine Quality Dataset
 
 Datasets used:
 
-* Red Wine Quality Dataset
-* White Wine Quality Dataset
+- Red Wine Quality Dataset
+- White Wine Quality Dataset
 
 Combined dataset:
 
-* 6,497 wine samples
+- 6,497 wine samples
 
 Features include:
 
-* Fixed acidity
-* Volatile acidity
-* Citric acid
-* Residual sugar
-* Chlorides
-* Free sulfur dioxide
-* Total sulfur dioxide
-* Density
-* pH
-* Sulphates
-* Alcohol
-* Wine type
+- Fixed acidity
+- Volatile acidity
+- Citric acid
+- Residual sugar
+- Chlorides
+- Free sulfur dioxide
+- Total sulfur dioxide
+- Density
+- pH
+- Sulphates
+- Alcohol
+- Wine type
 
 Target variable:
 
-* Wine Quality (3–9)
+- Wine Quality (3–9)
 
 ---
 
@@ -121,23 +106,39 @@ Target variable:
 
 ## Linear Regression
 
-* MAE = 0.564
-* RMSE = 0.736
-* R² = 0.267
+- MAE = 0.564
+- RMSE = 0.736
+- R² = 0.267
 
 ## Random Forest (Selected Model)
 
-* MAE = 0.437
-* RMSE = 0.608
-* R² = 0.499
+- MAE = 0.437
+- RMSE = 0.608
+- R² = 0.499
 
 ## Gradient Boosting
 
-* MAE = 0.532
-* RMSE = 0.679
-* R² = 0.376
+- MAE = 0.532
+- RMSE = 0.679
+- R² = 0.376
 
 The Random Forest model achieved the best performance and was selected for deployment.
+
+---
+
+# Screenshots
+
+## Main Interface
+
+![Main Interface](screenshots/main_interface.png)
+
+## Prediction Result
+
+![Prediction Result](screenshots/prediction_result.png)
+
+## Feature Importance & NLP Explanation
+
+![Feature Importance](screenshots/feature_importance_nlp.png)
 
 ---
 
@@ -225,18 +226,8 @@ streamlit run app.py
 
 ---
 
-# Screenshots
-
-See:
-
-* screenshots/main_interface.png
-* screenshots/prediction_result.png
-* screenshots/feature_importance_nlp.png
-
----
-
 # Author
 
 Arianit Salihi
 
-AI Applications Project – 2026
+AI Applications Project – ZHAW
