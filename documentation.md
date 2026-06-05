@@ -33,22 +33,26 @@ Primary blocks used for core solution (choose 2):
 ## 1.1 Problem Definition
 
 * Problem statement:
-  Wine quality assessment usually requires expert knowledge and sensory evaluation. Most users cannot estimate wine quality based on physicochemical measurements alone.
+
+Wine quality assessment usually requires expert knowledge and sensory evaluation. Most users cannot estimate wine quality based solely on physicochemical measurements.
 
 * Goal:
-  Develop an AI application that predicts wine quality from measurable wine characteristics and provides a human-readable explanation of the prediction.
+
+Develop an AI application that predicts wine quality using machine learning and provides understandable natural language explanations of the prediction.
 
 * Success criteria:
 
   * Accurate wine quality prediction
   * Comparison of multiple machine learning models
-  * Natural language explanation of predictions
+  * Human-readable NLP explanations
   * Functional web application deployment
+  * Clear integration between ML and NLP
 
 ## 1.2 Integration Logic
 
 * How the selected blocks interact:
-  The machine learning model predicts wine quality based on numerical wine characteristics. The NLP component receives the prediction and generates a user-friendly explanation.
+
+The ML component predicts wine quality based on physicochemical wine features. The NLP component receives the prediction and relevant feature information and generates an explanation for the user.
 
 * Data and output flow between blocks:
 
@@ -82,14 +86,15 @@ Wine Features
 
 * Preprocessing steps:
 
-  * Encoded wine type into numerical values
-  * Split dataset into training and testing sets
-  * Separated target variable from features
+  * Encoded wine type as a numerical feature
+  * Split dataset into training and testing data
+  * Separated target variable from predictors
 
 * Feature engineering and selection:
 
-  * Added wine_type as an additional feature
-  * Used all physicochemical measurements as model inputs
+  * Added wine_type feature
+  * Used all physicochemical measurements as input features
+  * Generated feature importance scores using Random Forest
 
 ### 2A.3 Model Selection
 
@@ -100,15 +105,16 @@ Wine Features
   * Gradient Boosting Regressor
 
 * Why these models were chosen:
-  Linear Regression was selected as a simple baseline model. Random Forest and Gradient Boosting were selected because they can capture non-linear relationships and complex feature interactions.
+
+Linear Regression was selected as a baseline model. Random Forest and Gradient Boosting were selected because they can model non-linear relationships and feature interactions.
 
 ### 2A.4 Model Comparison and Iterations
 
-| Iteration | Objective                       | Key changes            | Models used       | Main metric | Change vs previous                   |
-| --------- | ------------------------------- | ---------------------- | ----------------- | ----------- | ------------------------------------ |
-| 1         | Establish baseline              | Basic regression model | Linear Regression | R² = 0.267  | Baseline                             |
-| 2         | Improve prediction performance  | Ensemble learning      | Random Forest     | R² = 0.499  | Significant improvement              |
-| 3         | Test alternative ensemble model | Boosting approach      | Gradient Boosting | R² = 0.376  | Lower performance than Random Forest |
+| Iteration | Objective                     | Key changes            | Models used       | Main metric | Change vs previous                   |
+| --------- | ----------------------------- | ---------------------- | ----------------- | ----------- | ------------------------------------ |
+| 1         | Establish baseline            | Basic regression model | Linear Regression | R² = 0.267  | Baseline                             |
+| 2         | Improve prediction quality    | Ensemble learning      | Random Forest     | R² = 0.499  | Significant improvement              |
+| 3         | Evaluate alternative ensemble | Boosting approach      | Gradient Boosting | R² = 0.376  | Lower performance than Random Forest |
 
 ### 2A.5 Evaluation and Error Analysis
 
@@ -120,19 +126,19 @@ Wine Features
 
 * Final results:
 
-Linear Regression:
+Linear Regression
 
 * MAE = 0.564
 * RMSE = 0.736
 * R² = 0.267
 
-Random Forest:
+Random Forest
 
 * MAE = 0.437
 * RMSE = 0.608
 * R² = 0.499
 
-Gradient Boosting:
+Gradient Boosting
 
 * MAE = 0.532
 
@@ -141,7 +147,8 @@ Gradient Boosting:
 * R² = 0.376
 
 * Error patterns and likely causes:
-  Wine quality is partially subjective and influenced by factors not included in the dataset. This limits the maximum achievable prediction accuracy. Extreme quality classes (3 and 9) are underrepresented, which may reduce prediction performance for these cases.
+
+Wine quality ratings are partly subjective and influenced by factors that are not present in the dataset. In addition, extreme quality classes occur only rarely, which limits model performance for those cases.
 
 ### 2A.6 Integration with Other Block(s)
 
@@ -149,7 +156,8 @@ Gradient Boosting:
   None.
 
 * Outputs provided to other block(s):
-  The predicted wine quality score is passed to the NLP component for explanation generation.
+
+The predicted wine quality score is passed to the NLP module for explanation generation.
 
 ---
 
@@ -157,62 +165,69 @@ Gradient Boosting:
 
 ### 2B.1 Data Source(s)
 
-| Entry | Source name or link          | Type            | Size        | Role in this block      |
-| ----- | ---------------------------- | --------------- | ----------- | ----------------------- |
-| 1     | Predicted wine quality score | Numeric output  | 1 value     | Input for explanation   |
-| 2     | Wine feature values          | Structured data | 12 features | Context for explanation |
-| 3     | Rule-based prompt templates  | Text templates  | Internal    | Explanation generation  |
+| Entry | Source name or link          | Type                    | Size        | Role in this block               |
+| ----- | ---------------------------- | ----------------------- | ----------- | -------------------------------- |
+| 1     | Predicted wine quality score | Numeric output          | 1 value     | Input for explanation generation |
+| 2     | Wine feature values          | Structured data         | 12 features | Context for explanation          |
+| 3     | Prompt templates             | Internal text templates | N/A         | Explanation generation           |
 
 ### 2B.2 Preprocessing and Prompt Design
 
 * Text preprocessing:
-  No text cleaning was required because explanations were generated directly from structured model outputs.
+
+No text cleaning was required because the explanations are generated from structured model outputs.
 
 * Prompt design or retrieval setup:
-  Two explanation styles were implemented:
+
+Two explanation approaches were implemented:
 
 * Prompt A: Basic explanation
-
-* Prompt B: Detailed explanation with interpretation of important wine characteristics
+* Prompt B: Detailed explanation including interpretation of important wine characteristics
 
 ### 2B.3 Approach Selection
 
 * Approach used:
-  Prompt engineering and rule-based NLP generation.
+
+Prompt engineering and rule-based NLP generation.
 
 * Alternatives considered:
 
-  * Static text output
+  * Static output text
   * LLM-based explanations
 
-Prompt engineering was selected because it provides deterministic and reproducible explanations without requiring external APIs.
+Prompt engineering was selected because it provides reproducible and deterministic explanations without requiring external API services.
 
 ### 2B.4 Comparison and Iterations
 
-| Iteration | Objective                   | Key changes                  | Model or prompt setup | Main metric or qualitative check | Change vs previous  |
-| --------- | --------------------------- | ---------------------------- | --------------------- | -------------------------------- | ------------------- |
-| 1         | Generate simple explanation | Basic template               | Prompt A              | Understandability                | Baseline            |
-| 2         | Improve interpretability    | Feature-specific explanation | Prompt B              | More informative output          | Improved usefulness |
-| 3         | Integrated workflow         | Combined ML and NLP pipeline | Final version         | User experience                  | Better interaction  |
+| Iteration | Objective                  | Key changes                  | Model or prompt setup | Main metric or qualitative check | Change vs previous |
+| --------- | -------------------------- | ---------------------------- | --------------------- | -------------------------------- | ------------------ |
+| 1         | Generate basic explanation | Generic template             | Prompt A              | Readability                      | Baseline           |
+| 2         | Improve usefulness         | Feature-specific explanation | Prompt B              | Informativeness                  | Improved           |
+| 3         | Full integration           | Combined ML-NLP workflow     | Final version         | User experience                  | Better interaction |
 
 ### 2B.5 Evaluation and Error Analysis
 
 * Evaluation strategy:
-  Qualitative comparison of generated explanations.
+
+Qualitative comparison of generated explanations.
 
 * Results:
-  Prompt B produced more informative and useful explanations than Prompt A by referencing specific wine characteristics and quality factors.
+
+Prompt B provided more informative explanations by referencing specific wine properties and explaining why they may influence wine quality.
 
 * Error patterns and likely causes:
-  The explanations are rule-based and cannot capture all complex interactions between features. Some explanations may oversimplify the underlying model behaviour.
+
+The explanations are rule-based and cannot fully represent all relationships learned by the machine learning model. Complex interactions between variables may be simplified.
 
 ### 2B.6 Integration with Other Block(s)
 
 * Inputs received from other block(s):
-  Predicted wine quality score from the Random Forest model.
+
+Predicted wine quality score generated by the Random Forest model.
 
 * Outputs provided to other block(s):
-  Human-readable explanation displayed in the Streamlit application.
+
+Human-readable explanation displayed within the Streamlit application.
 
 ---
 
@@ -225,19 +240,20 @@ N/A
 # 3. Deployment
 
 * Deployment URL:
-  https://huggingface.co/spaces/Salihari/wine-ai-advisor
+
+https://huggingface.co/spaces/Salihari/wine-ai-advisor
 
 * Main user flow:
 
 1. User enters wine characteristics.
-2. Random Forest predicts wine quality.
-3. Feature importance is displayed.
-4. NLP generates explanations.
+2. The Random Forest model predicts wine quality.
+3. Feature importance information is displayed.
+4. NLP explanations are generated.
 5. Results are shown in the Streamlit interface.
 
 * Screenshot or short demo:
 
-Screenshots of:
+Included screenshots:
 
 * Main application interface
 * Prediction result
@@ -267,6 +283,7 @@ python download_data.py
 ```bash
 python src/train_model.py
 python src/feature_importance.py
+python notebooks/eda_visuals.py
 ```
 
 * Inference/run command(s):
@@ -277,7 +294,7 @@ streamlit run app.py
 
 * Reproducibility notes:
 
-All experiments use fixed random seeds where applicable. The Random Forest model is automatically saved and reused during prediction.
+All experiments were executed using the same dataset and reproducible preprocessing pipeline. The trained Random Forest model is stored and reused for inference.
 
 ---
 
@@ -292,15 +309,13 @@ All experiments use fixed random seeds where applicable. The Random Forest model
 
 Evidence for selected bonus items:
 
-The project includes:
-
 * Comparison of three machine learning models
 * Multiple evaluation metrics
 * Feature importance analysis
-* Exploratory data analysis
-* Comparison of multiple NLP explanation strategies
+* Exploratory Data Analysis (EDA)
+* Multiple NLP explanation strategies
 * Integrated ML and NLP workflow
-* Interactive web deployment
+* Interactive Streamlit deployment
+* Online deployment via Hugging Face Spaces
+* GitHub repository with reproducible implementation
 
-```
-```
