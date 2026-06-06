@@ -1,21 +1,22 @@
 # 🍷 AI Wine Advisor
 
-AI Wine Advisor is an AI application that predicts wine quality using machine learning and explains the prediction using natural language processing (NLP).
+AI Wine Advisor is an AI application that predicts wine quality using machine learning, explains the prediction using Natural Language Processing (NLP), and analyzes uploaded wine images using Computer Vision.
 
-This project was developed for the AI Applications course and combines the following AI blocks:
+This project was developed for the AI Applications course and combines three different AI approaches:
 
-- ML Numeric Data
-- NLP (Natural Language Processing)
+- Machine Learning (ML)
+- Natural Language Processing (NLP)
+- Computer Vision (CV)
 
 ---
 
 # Live Demo
 
-Hugging Face Deployment:
+### Hugging Face Deployment
 
 https://huggingface.co/spaces/Salihari/wine-ai-advisor
 
-GitHub Repository:
+### GitHub Repository
 
 https://github.com/Arianit1818/wine-ai-advisor
 
@@ -23,15 +24,21 @@ https://github.com/Arianit1818/wine-ai-advisor
 
 # Project Overview
 
-Wine quality is difficult to estimate without expert knowledge. This application predicts wine quality based on physicochemical properties and provides an understandable explanation of the prediction.
+Wine quality is difficult to estimate without expert knowledge. This application predicts wine quality based on physicochemical properties and provides understandable explanations for users.
+
+The system combines Machine Learning, NLP and Computer Vision in one workflow.
 
 Workflow:
 
-Wine Features  
-→ Machine Learning Prediction  
-→ Quality Score  
-→ NLP Explanation  
-→ Streamlit User Interface
+Image Upload  
+↓  
+Computer Vision Analysis  
+↓  
+Visual Explanation  
+↓  
+Machine Learning Prediction  
+↓  
+NLP Explanation
 
 ---
 
@@ -50,19 +57,32 @@ Wine Features
   - R² Score
 - Feature importance analysis
 
-## NLP
+## Natural Language Processing
 
 - Automatic explanation generation
 - Comparison of multiple explanation styles
 - Human-readable prediction interpretation
+- Integration with ML prediction results
+
+## Computer Vision
+
+- Wine image upload
+- Visual image analysis
+- Brightness analysis
+- Dominant color detection
+- Bottle-related visual characteristics
+- Automatic image explanation generation
+- Integration with NLP workflow
 
 ## User Interface
 
 - Interactive Streamlit dashboard
 - Adjustable wine characteristics
+- Wine image upload
 - Quality category classification
 - Feature importance visualization
 - NLP explanations
+- Computer Vision explanations
 
 ---
 
@@ -140,6 +160,10 @@ The Random Forest model achieved the best performance and was selected for deplo
 
 ![Feature Importance](screenshots/feature_importance_nlp.png)
 
+## Computer Vision Analysis
+
+![Computer Vision](screenshots/computer_vision.png)
+
 ---
 
 # Project Structure
@@ -198,19 +222,23 @@ python download_data.py
 
 ---
 
-# Training
+# Model Training
 
 ```bash
 python src/train_model.py
 ```
 
-Generate feature importance:
+---
+
+# Feature Importance Analysis
 
 ```bash
 python src/feature_importance.py
 ```
 
-Generate visualizations:
+---
+
+# Exploratory Data Analysis
 
 ```bash
 python notebooks/eda_visuals.py
@@ -226,8 +254,22 @@ streamlit run app.py
 
 ---
 
+# Technologies Used
+
+- Python
+- Streamlit
+- Pandas
+- NumPy
+- Scikit-Learn
+- Matplotlib
+- Seaborn
+- Joblib
+- Pillow
+
+---
+
 # Author
 
 Arianit Salihi
 
-AI Applications Project – ZHAW
+ZHAW – AI Applications Project
