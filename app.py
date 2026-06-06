@@ -1,8 +1,10 @@
 import pandas as pd
 import streamlit as st
+from PIL import Image
 
 from src.predict import predict_quality
 from src.nlp_explainer import compare_prompt_styles
+from src.cv_analyzer import analyze_wine_image, generate_image_explanation
 
 
 st.set_page_config(
@@ -28,8 +30,8 @@ def load_feature_importance():
 st.title("🍷 AI Wine Advisor")
 
 st.write(
-    "This app predicts wine quality based on physicochemical properties "
-    "and explains the prediction using a simple NLP explanation module."
+    "This app predicts wine quality based on physicochemical properties, "
+    "explains the prediction using NLP, and optionally analyzes an uploaded wine image."
 )
 
 st.sidebar.header("Wine Input Features")
@@ -161,6 +163,39 @@ with right_col:
     st.write("- Random Forest")
     st.write("- Gradient Boosting")
 
+st.divider()
+
+st.subheader("Optional Computer Vision Input")
+
+uploaded_image = st.file_uploader(
+    "Upload a wine bottle or wine label image",
+    type=["jpg", "jpeg", "png"]
+)
+
+image_analysis = None
+image_explanation = None
+
+if uploaded_image is not None:
+    image = Image.open(uploaded_image)
+
+    img_col1, img_col2 = st.columns([1, 1])
+
+    with img_col1:
+        st.image(image, caption="Uploaded Wine Image", width=350)
+
+    with img_col2:
+        image_analysis = analyze_wine_image(image)
+        image_explanation = generate_image_explanation(image_analysis)
+
+        st.markdown("### Computer Vision Analysis")
+        st.dataframe(
+            pd.DataFrame([image_analysis]).T.rename(columns={0: "Value"}),
+            width="stretch"
+        )
+
+        st.markdown("### Visual Explanation")
+        st.write(image_explanation)
+
 if st.button("Predict Wine Quality"):
     prediction = predict_quality(input_data)
     category, emoji = get_quality_category(prediction)
@@ -208,7 +243,12 @@ if st.button("Predict Wine Quality"):
     st.markdown("### Prompt B - Detailed Explanation")
     st.write(explanations["Prompt B - Detailed explanation"])
 
+    if image_explanation is not None:
+        st.markdown("### Additional Computer Vision Explanation")
+        st.write(image_explanation)
+
     st.info(
         "The ML prediction is directly used as input for the NLP explanation. "
-        "This connects the Numeric ML block with the NLP block in one workflow."
+        "If an image is uploaded, the Computer Vision component adds visual information "
+        "to the overall analysis."
     )
